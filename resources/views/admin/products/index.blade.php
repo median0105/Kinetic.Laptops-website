@@ -50,7 +50,18 @@
                                 <td class="px-6 py-3 text-sm text-zinc-700 dark:text-zinc-300">{{ $product->category->name }}</td>
                                 <td class="px-6 py-3 text-sm text-zinc-500 dark:text-zinc-400">{{ $product->sku }}</td>
                                 <td class="px-6 py-3 text-sm font-bold text-zinc-900 dark:text-white">Rp {{ number_format($product->price, 0, ',', '.') }}</td>
-                                <td class="px-6 py-3 text-sm {{ $product->stock > 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400' }} font-medium">{{ $product->stock }}</td>
+                                <td class="px-6 py-3">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm {{ $product->stock > 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400' }} font-medium">{{ $product->stock }}</span>
+                                        <form method="POST" action="{{ route('admin.products.add-stock', $product) }}" class="flex items-center gap-1">
+                                            @csrf
+                                            <input type="number" name="stock_added" min="1" value="1" title="Jumlah stok yang ditambahkan"
+                                                class="w-16 rounded-md border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 px-1.5 py-1 text-xs text-zinc-900 dark:text-white focus:border-zinc-500 focus:ring-zinc-500">
+                                            <button type="submit" title="Tambah stok"
+                                                class="rounded-md bg-emerald-600 dark:bg-emerald-700 px-2 py-1 text-[11px] font-semibold text-white hover:bg-emerald-500 dark:hover:bg-emerald-600 transition">+ Stok</button>
+                                        </form>
+                                    </div>
+                                </td>
                                 <td class="px-6 py-3">
                                     <span class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold {{ $product->is_active ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/60' : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-300 dark:border-zinc-700' }}">
                                         {{ $product->is_active ? 'Aktif' : 'Nonaktif' }}

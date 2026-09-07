@@ -127,6 +127,17 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Produk diperbarui.');
     }
 
+    public function addStock(Request $request, Product $product)
+    {
+        $data = $request->validate([
+            'stock_added' => 'required|integer|min:1',
+        ]);
+
+        $product->increment('stock', $data['stock_added']);
+
+        return back()->with('success', "Stok {$product->name} bertambah {$data['stock_added']} unit.");
+    }
+
     public function destroy(Product $product)
     {
         $product->delete();

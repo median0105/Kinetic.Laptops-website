@@ -48,6 +48,7 @@ Route::middleware(['auth', 'customer'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('/products', AdminProductController::class);
+    Route::post('/products/{product}/stock', [AdminProductController::class, 'addStock'])->name('products.add-stock');
     Route::resource('/categories', AdminCategoryController::class);
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
